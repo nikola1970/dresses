@@ -28,7 +28,9 @@ module.exports.editCategory = (req, res, next) => {};
 
 module.exports.deleteCategory = (req, res, next) => {};
 
-module.exports.addDress = (req, res, next) => {};
+module.exports.addDress = (req, res, next) => {
+    console.log("test");
+};
 
 module.exports.editDress = (req, res, next) => {};
 
