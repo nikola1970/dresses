@@ -14,10 +14,13 @@ module.exports.getCategory = (req, res, next) => {
 };
 
 module.exports.getDress = (req, res, next) => {
-    Category.findOne({ slug: req.params.category })
-        .then(category => {
-            const dressRecord = category.dresses.find(dress => dress.name = req.params.dress);
-            res.status(200).json(dressRecord);
+    Category._getDress(req.params.dress)
+        .then(dress => {
+            if (!dress.length) {
+                res.status(200).json({ message: "No dress found..." });
+            } else {
+                res.status(200).json(dress);
+            }
         })
-        .catch(err => res.status(500).json(err))
+        .catch(err => res.status(500).json(err));
 };

@@ -34,6 +34,10 @@ CategorySchema.statics._addDress = function(categoryName, dressContent) {
     });
 };
 
+CategorySchema.statics._getDress = function(dressName) {
+    return this.find({'dresses.name': dressName}, {'dresses.$': 1});
+};
+
 CategorySchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 module.exports = mongoose.model("Category", CategorySchema);
