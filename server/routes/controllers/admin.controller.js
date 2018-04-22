@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 const Category = require("../../db/models/CategoryModel");
-const Dress = require("../../db/models/DressModel");
 const User = require("../../db/models/UserModel");
 import { slugify } from "../../utils";
 
@@ -29,6 +28,15 @@ module.exports.editCategory = (req, res, next) => {};
 module.exports.deleteCategory = (req, res, next) => {};
 
 module.exports.addDress = (req, res, next) => {
+    Category._addDress(req.body.categoryName, req.body.newDress)
+        .then(newDress => res.status(201).json({ message: "Successfully created new dress!", newDress}))
+        .catch(err => {
+            if (err.errors) { // custom errors
+                res.status(400).json({ message: err.errors[Object.keys(err.errors)[0]].message });
+            } else {
+                res.status(404).json(err);
+            }
+        });
 };
 
 module.exports.editDress = (req, res, next) => {};
@@ -69,5 +77,3 @@ module.exports.login = (req, res, next) => {
         }
     });
 };
-
-// todo: prevent duplication of the custom error handlers in controllers
