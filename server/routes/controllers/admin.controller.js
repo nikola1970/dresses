@@ -26,7 +26,7 @@ module.exports.editCategory = (req, res, next) => {};
 module.exports.deleteCategory = (req, res, next) => {};
 
 module.exports.addDress = (req, res, next) => {
-    Category._addDress(req.body.categoryName, req.body.newDress)
+    Category._addDress(req.params.category, { name: slugify(req.body.name) }) // ovde ide full dress objekat (name, desc, slike...)
         .then(newDress => res.status(201).json({ message: "Successfully created new dress!", newDress}))
         .catch(err => {
             if (err.errors) { // custom mongoose dress errors
@@ -74,3 +74,6 @@ module.exports.login = (req, res, next) => {
     })
     .catch(err => res.status(500).json({ message: "Something went wrong... Try again soon." }));
 };
+
+
+// todo : addDress treba da prima objekat a ne samo jednu vrednost - ovo je vec klijent posao.

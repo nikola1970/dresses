@@ -19,27 +19,23 @@ import {
 
 // Categories, dress routes:
 router.route("/categories")
-    .get(getCategories)
-    .post(addCategory);
+    .get(getCategories)  // done
+    .post(addCategory);  // done
 
 router.route("/categories/:category")
-    .get(getCategory)
-    .post(addDress)
+    .get(getCategory) // done
+    .post(addDress)   // done
     .put(editCategory)
     .delete(deleteCategory);
 
 router.route("/categories/:category/:dress")
-    .get(getDress)
+    .get(getDress) // done
     .put(editDress)
     .delete(deleteDress);
 
-
-
 // user routes:
-router.post("/admin/register", register);
-router.post("/admin/login", login);
-
-
+router.post("/admin/register", register); // done
+router.post("/admin/login", login); // done
 
 
 module.exports = router;
