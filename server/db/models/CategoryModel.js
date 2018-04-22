@@ -30,7 +30,7 @@ CategorySchema.statics._addDress = function(categoryName, dressContent) {
                     .then((category) => resolve(dressContent))
                     .catch(err => reject(err));
             }
-        }).catch(err => reject(err));
+        }).catch(err => reject({ backendProblem: true, err}));
     });
 };
 

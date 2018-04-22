@@ -31,9 +31,11 @@ module.exports.addDress = (req, res, next) => {
     Category._addDress(req.body.categoryName, req.body.newDress)
         .then(newDress => res.status(201).json({ message: "Successfully created new dress!", newDress}))
         .catch(err => {
-            if (err.errors) { // custom errors
+            if (err.errors) { // custom mongoose dress errors
                 res.status(400).json({ message: err.errors[Object.keys(err.errors)[0]].message });
-            } else {
+            } else if (err.backendProblem) { // server error
+                res.status(500).json(err);
+            } else { // no category found 
                 res.status(404).json(err);
             }
         });
