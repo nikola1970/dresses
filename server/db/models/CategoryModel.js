@@ -21,8 +21,7 @@ const CategorySchema = new Schema({
 
 CategorySchema.statics._addDress = function(categoryName, dressContent) {
     return new Promise((resolve, reject) => {
-        this.findOne({ slug: categoryName }, function(err, category) {
-            if (err) reject(err);
+        this.findOne({ slug: categoryName }).then(category => {
             if (!category) {
                 reject({ message: "No category found!" });
             } else {
@@ -31,7 +30,7 @@ CategorySchema.statics._addDress = function(categoryName, dressContent) {
                     .then((category) => resolve(dressContent))
                     .catch(err => reject(err));
             }
-        });
+        }).catch(err => reject(err));
     });
 };
 
